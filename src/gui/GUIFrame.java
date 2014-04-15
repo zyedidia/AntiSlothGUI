@@ -17,77 +17,43 @@ import javax.swing.KeyStroke;
 @SuppressWarnings("serial")
 public class GUIFrame extends JFrame {
 
-	JTabbedPane tabbed = new JTabbedPane(JTabbedPane.LEFT);
-
-	JComponent panel1 = new JPanel();
-	JComponent panel2 = new JPanel();
-	JComponent panel3 = new JPanel();
+	JTabbedPane tabbed = new JTabbedPane(JTabbedPane.TOP);
+	JMenuBar menuBar = new JMenuBar();
+	JMenu menu = new JMenu("Menu");
 
 	public GUIFrame() {
-		
+
 		super("Anti-Sloth");
 		super.setSize(400, 400);
-		
-		//tab();
+
+		menu.setMnemonic(KeyEvent.VK_A);
+		menuBar.add(menu);
+
 		//menubar();
 
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-
-	public void tab() {
-
-		//adding a tab frame to the content pane
-		tabbed.setBounds(20,20, 360, 360);
-		getContentPane().add(tabbed);
-
-		//adding tabs to the tabbed frame, and connecting each tab with each panel
-		tabbed.addTab("Test", null, panel1, "Does nothing");
-		tabbed.addTab("Test2", null, panel2, "Does nothing");
-		tabbed.addTab("TEST", null, panel3, " ");
-
-
-		//intiating a new button
-		JComponent but = new JButton();		
-
-		but.setLocation(40, 40);
-		panel1.add(but);
-	}
-
-
-	public void menubar() {
-		//initializing menu, menubar and the menu items
-		JMenuBar menuBar = new JMenuBar();
-		JMenu menu, submenu;
+	public void addTextItemToMenu(String name) {
 		JMenuItem TOItem;
-		JRadioButtonMenuItem rbMenuItem;
-
-
-		//adding the menu to the menu bar
-		menu = new JMenu("Menu");
-		menu.setMnemonic(KeyEvent.VK_A);
-		menuBar.add(menu);
-
-		//initiating menuItem
-		TOItem = new JMenuItem("Text only item");
+		TOItem = new JMenuItem(name);
 		TOItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-
-
-		//adding ites to the menu
 
 		menu.add(TOItem);
 		menu.addSeparator();
-		//		ButtonGroup group = new ButtonGroup();
-		rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
+
+		super.setJMenuBar(menuBar);
+	}
+
+	public void addRadioButtonToMenu(String name) {
+		JRadioButtonMenuItem rbMenuItem;
+
+		rbMenuItem = new JRadioButtonMenuItem(name);
 		rbMenuItem.setSelected(false);
-		//		group.add(rbMenuItem);
+
 		menu.add(rbMenuItem);
 
-		rbMenuItem = new JRadioButtonMenuItem("Another one");
-		menu.add(rbMenuItem);
-
-		//adding menubar to frame
 		super.setJMenuBar(menuBar);
 	}
 
@@ -108,6 +74,14 @@ public class GUIFrame extends JFrame {
 		return panel;
 	}
 
+	public void addTab(String name, JPanel panel) {
+		//adding a tab frame to the content pane
+		tabbed.setBounds(20,20, 360, 360);
+		getContentPane().add(tabbed);
+
+		tabbed.addTab(name, null, panel, "Does nothing");
+	}
+
 	public static void main(String [] args) {
 		//@SuppressWarnings("unused")
 		GUIFrame gui = new GUIFrame();
@@ -115,6 +89,5 @@ public class GUIFrame extends JFrame {
 			JPanel panel = gui.addTab(i + "");
 			panel.add(new JButton("" + i));
 		}
-
 	}
 }
