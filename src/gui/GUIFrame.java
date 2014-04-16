@@ -28,8 +28,7 @@ import org.jfree.data.general.PieDataset;
 @SuppressWarnings("serial")
 public class GUIFrame extends JFrame {
 	
-	   JTabbedPane tabbed = new JTabbedPane(JTabbedPane.LEFT);
-	  
+	 JTabbedPane tabbed = new JTabbedPane(JTabbedPane.LEFT);
 	 JComponent panel1 = new JPanel();
 
 
@@ -55,6 +54,8 @@ public class GUIFrame extends JFrame {
 //		lblChart.setIcon(new ImageIcon(image));
 //		
 //		panel1.add(lblChart);
+		
+		
 		DefaultPieDataset d1 = (DefaultPieDataset) data("Chrome", "Itunes", "Word", 10, 20);
 		JFreeChart c1 = pie("Program Usage Demo", d1);
 		
@@ -145,9 +146,9 @@ public class GUIFrame extends JFrame {
 
 		//@SuppressWarnings("unused")
 		GUIFrame gui = new GUIFrame();
-		for (int i = 0; i < 10; i++) {
-			JPanel panel = gui.addTab(i + "");
-			panel.add(new JButton("" + i));
-		}
+//		for (int i = 0; i < 10; i++) {
+//			JPanel panel = gui.addTab(i + "");
+//			panel.add(new JButton("" + i));
+//		}
 	}
 }
