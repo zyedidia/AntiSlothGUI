@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -16,6 +18,14 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+
+
+
+
 @SuppressWarnings("serial")
 public class GUIFrame extends JFrame {
 	
@@ -23,6 +33,7 @@ public class GUIFrame extends JFrame {
 	  
 	   JComponent panel1 = new JPanel();
 	   JComponent panel2 = new JPanel();
+	   JComponent panel3 = new JPanel();
 	   
 	public GUIFrame() {
 		super("Anti-Sloth");
@@ -33,6 +44,27 @@ public class GUIFrame extends JFrame {
 		
 		tab();
 		menubar();
+		
+		//test
+//		DefaultPieDataset data = new DefaultPieDataset();
+//		data.setValue("Itunes", new Integer(30));
+//		data.setValue("Chrome", new Integer(60));
+//		data.setValue("Word", new Integer(10));
+//		
+//		JFreeChart chart = ChartFactory.createPieChart("name", data);
+//		
+//		BufferedImage image = chart.createBufferedImage(500,300);
+//		JLabel lblChart = new JLabel();
+//		lblChart.setIcon(new ImageIcon(image));
+//		
+//		panel1.add(lblChart);
+		DefaultPieDataset d1 = (DefaultPieDataset) data("Chrome", "Itunes", "Word", 10, 20);
+		JFreeChart c1 = pie("Program Usage Demo", d1);
+		
+		displaychart(panel1, c1, 300, 200);
+		
+		
+		
 		
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,6 +81,8 @@ public class GUIFrame extends JFrame {
 		//adding tabs to the tabbed frame, and connecting each tab with each panel
 		tabbed.addTab("Test", null, panel1, "Does nothing");
 		tabbed.addTab("Test2", null, panel2, "Does nothing");
+		tabbed.addTab("Tab3", null, panel3, "Does nothing");
+		
 		
 		
 		//intiating a new button
@@ -100,12 +134,38 @@ public class GUIFrame extends JFrame {
 	}
 	
 	
-	public void add (JComponent Panel, JComponent Comp) {
+//	public void add (JComponent Panel, JComponent Comp) {
+//		
+//		
+//		
+//	}
+	
+	public PieDataset data(String name, String name2, String n3, int v1, int v2) {
+		DefaultPieDataset data = new DefaultPieDataset();
+		data.setValue(name, new Integer(v1));
+		data.setValue(name2, new Integer(v2));
+		data.setValue(n3, new Integer(100 - v1 + v2));
+		
+		return data;
+	}
+	
+	public JFreeChart pie(String name, PieDataset data) {
+		JFreeChart chart = ChartFactory.createPieChart(name, data);
+		
+		return chart;
+	}
+	
+	public void displaychart(JComponent panel, JFreeChart chart, int width, int height ) {
+	    BufferedImage image = chart.createBufferedImage(width, height);
+	    JLabel l = new JLabel();
+		l.setIcon( new ImageIcon(image));
+		panel.add(l);
 		
 	}
 	
 	public static void main(String [] args) {
 		GUIFrame test = new GUIFrame();
+		
 		
 	}
 }
