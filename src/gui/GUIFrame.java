@@ -132,8 +132,32 @@ public class GUIFrame extends JFrame {
 	public static void main(String [] args) {
 
 		GUIFrame gui = new GUIFrame();
-		gui.createPieChart(gui.addTab("Pie Chart"), "Hello world", new String[] {"Test", "Test1", "Test2"}, new int[] {30, 50, 20});
-		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50});
+		
+		/*// Write blocked programs to BlockedPrograms.txt
+		TextFileWriter.writeToFile("BlockedPrograms.txt", "Itunes\nChrome\nBlah\nSteam");
+		
+		// Write values to TestValues.txt
+		TextFileWriter.writeToFile("TestValues.txt", "Itunes");
+		TextFileWriter.writeToFile("TestValues.txt", "20");
+		
+		TextFileWriter.writeToFile("TestValues.txt", "Chrome");
+		TextFileWriter.writeToFile("TestValues.txt", "50");
 
+		TextFileWriter.writeToFile("TestValues.txt", "Blah");
+		TextFileWriter.writeToFile("TestValues.txt", "30");*/
+		
+		// Read values in from TestValues.txt and turn them into a pie chart
+		gui.createPieChart(gui.addTab("Pie Chart"), "Hello world", 
+				new String[] {
+							  TextFileReader.readLineFromFile("TestValues.txt", 1), 
+							  TextFileReader.readLineFromFile("TestValues.txt", 3), 
+							  TextFileReader.readLineFromFile("TestValues.txt", 5)}, 
+				new int[] {
+			 				  Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 2)), 
+						      Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 4)), 
+						      Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 6))});
+		
+		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50});
+		gui.addTab("Blocked Programs", new ProductivePanel());
 	}
 }

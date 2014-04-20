@@ -57,7 +57,7 @@ public class TextFileReader {
 
 				String line;
 				while ((line = br.readLine()) != null) {
-					entireFile += line;
+					entireFile += line + "\n";
 				}
 				
 				br.close();
