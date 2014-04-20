@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,15 +21,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-
-
-
 @SuppressWarnings("serial")
 public class GUIFrame extends JFrame {
-	
-	   JTabbedPane tabbed = new JTabbedPane(JTabbedPane.LEFT);
-	  
-	 JComponent panel1 = new JPanel();
+
+	JTabbedPane tabbed = new JTabbedPane(JTabbedPane.TOP);
+
+	JComponent panel1 = new JPanel();
 
 
 	JMenuBar menuBar = new JMenuBar();
@@ -39,36 +35,15 @@ public class GUIFrame extends JFrame {
 	public GUIFrame() {
 
 		super("Anti-Sloth");
-		super.setSize(400, 400);
+		super.setSize(700, 700);
 
-		
-		//test
-//		DefaultPieDataset data = new DefaultPieDataset();
-//		data.setValue("Itunes", new Integer(30));
-//		data.setValue("Chrome", new Integer(60));
-//		data.setValue("Word", new Integer(10));
-//		
-//		JFreeChart chart = ChartFactory.createPieChart("name", data);
-//		
-//		BufferedImage image = chart.createBufferedImage(500,300);
-//		JLabel lblChart = new JLabel();
-//		lblChart.setIcon(new ImageIcon(image));
-//		
-//		panel1.add(lblChart);
-		DefaultPieDataset d1 = (DefaultPieDataset) data("Chrome", "Itunes", "Word", 10, 20);
-		JFreeChart c1 = pie("Program Usage Demo", d1);
-		
-		displaychart(panel1, c1, 300, 200);
-		
 		menu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menu);
-
-		//menubar();
 
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
+
 	public void addTextItemToMenu(String name) {
 		JMenuItem TOItem;
 		TOItem = new JMenuItem(name);
@@ -90,35 +65,48 @@ public class GUIFrame extends JFrame {
 
 		super.setJMenuBar(menuBar);
 	}	
-	
-//	public void add (JComponent Panel, JComponent Comp) {
-//		
-//		
-//		
-//	}
-	
+
 	public PieDataset data(String name, String name2, String n3, int v1, int v2) {
 		DefaultPieDataset data = new DefaultPieDataset();
 		data.setValue(name, new Integer(v1));
 		data.setValue(name2, new Integer(v2));
 		data.setValue(n3, new Integer(100 - v1 + v2));
-		
+
 		return data;
 	}
-	
+
 	public JFreeChart pie(String name, PieDataset data) {
 		JFreeChart chart = ChartFactory.createPieChart(name, data);
-		
+
 		return chart;
 	}
-	
+
 	public void displaychart(JComponent panel, JFreeChart chart, int width, int height ) {
-	    BufferedImage image = chart.createBufferedImage(width, height);
-	    JLabel l = new JLabel();
+		BufferedImage image = chart.createBufferedImage(width, height);
+		JLabel l = new JLabel();
 		l.setIcon( new ImageIcon(image));
 		panel.add(l);
-		
+	}
 
+	public void createPieChart(JPanel panel, String chartName, String[] dataStrings, int[] dataValues) {
+		DefaultPieDataset data = new DefaultPieDataset();
+
+		if (dataStrings.length == dataValues.length) {
+
+			for (int i = 0; i < dataStrings.length; i++) {
+				data.setValue(dataStrings[i], new Integer(dataValues[i]));
+			}
+
+			JFreeChart chart = ChartFactory.createPieChart(chartName, data);
+
+			BufferedImage image = chart.createBufferedImage(500,300);
+			JLabel lblChart = new JLabel();
+			lblChart.setIcon(new ImageIcon(image));
+
+			panel.add(lblChart);
+		} else {
+			System.err.println("Data Strings array must be the same length as data values array!");
+		}
 	}
 
 	public JPanel addTab(String name) {
@@ -143,11 +131,10 @@ public class GUIFrame extends JFrame {
 
 	public static void main(String [] args) {
 
-		//@SuppressWarnings("unused")
 		GUIFrame gui = new GUIFrame();
-		for (int i = 0; i < 10; i++) {
-			JPanel panel = gui.addTab(i + "");
-			panel.add(new JButton("" + i));
-		}
+		gui.createPieChart(gui.addTab("Pie Chart"), "Hello world", new String[] {"Test", "Test1", "Test2"}, new int[] {30, 50, 20});
+		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50});
+
+
 	}
 }
