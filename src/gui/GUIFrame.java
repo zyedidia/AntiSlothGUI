@@ -135,6 +135,5 @@ public class GUIFrame extends JFrame {
 		gui.createPieChart(gui.addTab("Pie Chart"), "Hello world", new String[] {"Test", "Test1", "Test2"}, new int[] {30, 50, 20});
 		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50});
 
-
 	}
 }
