@@ -27,4 +27,25 @@ public class TextFileWriter {
 			System.err.println("Could not write to file: " + filePath);
 		}
 	}
+	
+	/*public static void replaceFileLine(String filePath, int lineNumber, String replaceWith) {
+		File file  = new File(filePath);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.err.println(filePath + " does not exist. Failed to create new file");
+			}
+		}
+		
+		try {
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filePath, true)));
+		    out.
+		    out.println(toWrite);
+		    out.close();
+		} catch (IOException e) {
+			System.err.println("Could not write to file: " + filePath);
+		}
+	}*/
 }

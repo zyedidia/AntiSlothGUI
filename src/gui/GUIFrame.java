@@ -36,6 +36,8 @@ public class GUIFrame extends JFrame {
 
 		super("Anti-Sloth");
 		super.setSize(700, 700);
+		
+		//this.setLayout(null);
 
 		menu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menu);
@@ -88,7 +90,7 @@ public class GUIFrame extends JFrame {
 		panel.add(l);
 	}
 
-	public void createPieChart(JPanel panel, String chartName, String[] dataStrings, int[] dataValues) {
+	public void createPieChart(JPanel panel, String chartName, String[] dataStrings, int[] dataValues, int sizeX, int sizeY) {
 		DefaultPieDataset data = new DefaultPieDataset();
 
 		if (dataStrings.length == dataValues.length) {
@@ -99,7 +101,7 @@ public class GUIFrame extends JFrame {
 
 			JFreeChart chart = ChartFactory.createPieChart(chartName, data);
 
-			BufferedImage image = chart.createBufferedImage(500,300);
+			BufferedImage image = chart.createBufferedImage(sizeX, sizeY);
 			JLabel lblChart = new JLabel();
 			lblChart.setIcon(new ImageIcon(image));
 
@@ -155,9 +157,10 @@ public class GUIFrame extends JFrame {
 				new int[] {
 			 				  Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 2)), 
 						      Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 4)), 
-						      Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 6))});
+						      Integer.parseInt(TextFileReader.readLineFromFile("TestValues.txt", 6))},
+				600, 600);
 		
-		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50});
+		gui.createPieChart(gui.addTab("Other Pie Chart"), "Goodbye", new String[] {"Itunes", "Chrome", "Blah"}, new int[] {25, 25, 50}, 600, 600);
 		gui.addTab("Blocked Programs", new ProductivePanel());
 	}
 }
